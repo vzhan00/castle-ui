@@ -1,46 +1,67 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import {
     // Import predefined theme
     ThemeSupa,
 } from "@supabase/auth-ui-shared";
-import { createClient } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import clsx from "clsx";
 import { styled, css } from "@mui/system";
 import { Modal as BaseModal } from "@mui/base/Modal";
+import { supabase } from "..";
+import { Home } from "./Home";
 
-const supabase = createClient(
-    process.env.REACT_APP_SUPABASE_URL!,
-    process.env.REACT_APP_SUPABASE_ANON_KEY!
-);
 
 export default function SignIn() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    return (
-        <div>
-            <TriggerButton type="button" onClick={handleOpen}>
-                Login/Sign Up
-            </TriggerButton>
-            <Modal
-                aria-labelledby="unstyled-modal-title"
-                aria-describedby="unstyled-modal-description"
-                open={open}
-                onClose={handleClose}
-                slots={{ backdrop: StyledBackdrop }}
-            >
-                <ModalContent sx={{ width: 400 }}>
-                    <Auth
-                        supabaseClient={supabase}
-                        appearance={{ theme: ThemeSupa }}
-                        providers={[]}
-                    />
-                </ModalContent>
-            </Modal>
-        </div>
-    );
+    const [session, setSession] = useState<Session | null>(null)
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session)
+        })
+
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+        })
+
+        return () => subscription.unsubscribe()
+    }, [])
+
+    if (!session) {
+        return (
+            <div>
+                <TriggerButton type="button" onClick={handleOpen}>
+                    Login/Sign Up
+                </TriggerButton>
+                <Modal
+                    aria-labelledby="unstyled-modal-title"
+                    aria-describedby="unstyled-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    slots={{ backdrop: StyledBackdrop }}
+                >
+                    <ModalContent sx={{ width: 400 }}>
+                        <Auth
+                            supabaseClient={supabase}
+                            appearance={{ theme: ThemeSupa }}
+                            providers={[]}
+                        />
+                    </ModalContent>
+                </Modal>
+            </div>
+        );
+    }
+    else {
+        return (
+            <Home />
+        )
+    }
 }
 
 const Backdrop = React.forwardRef<
