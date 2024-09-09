@@ -1,14 +1,17 @@
+import React from "react";
+
 import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
-import React from "react";
 import { supabase } from "..";
 import { useGetWatchlistByIdQuery, useLazyGetWatchlistByIdQuery } from "../services/WatchlistApi";
+import { WatchlistView } from "./Watchlist";
 
 export function Home() {
-    const { data } = useGetWatchlistByIdQuery('1')
+    // const { data } = useGetWatchlistByIdQuery('1')
+    const [trigger, { data }] = useLazyGetWatchlistByIdQuery();
 
     const onClickWatchlist = () => {
-        console.log(data)
+        trigger('1');
     }
 
     const signOut = () => {
@@ -16,10 +19,13 @@ export function Home() {
         supabase.auth.signOut();
     }
 
+    console.log(data)
+
     return (
         <Container>
             <Button onClick={onClickWatchlist} variant="contained">Get Watchlist</Button>
             <Button onClick={signOut} variant="contained">Log out</Button>
+            {data && <WatchlistView watchlist={data.watchlist} />}
         </Container>
     )
 }

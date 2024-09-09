@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Watchlist } from '../types/Watchlist'
+import { WatchlistResponse } from '../types/Watchlist'
+import { customBaseQuery } from './customBaseQuery'
 
 export const watchlistApi = createApi({
   reducerPath: 'watchlistApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:31000/watchlist/' }),
+  baseQuery: customBaseQuery,
   endpoints: (builder) => ({
-    getWatchlistById: builder.query<Watchlist, string>({
+    getWatchlistById: builder.query<WatchlistResponse, string>({
       query: (watchlistId) => `getWatchlist/${watchlistId}`,
     }),
   }),

@@ -21,14 +21,14 @@ export default function SignIn() {
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
-        })
+            setSession(session);
+        });
 
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session)
-        })
+        });
 
         return () => subscription.unsubscribe()
     }, [])
@@ -58,6 +58,7 @@ export default function SignIn() {
         );
     }
     else {
+        console.log(session)
         return (
             <Home />
         )
