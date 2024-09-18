@@ -1,31 +1,52 @@
 {
-    "compilerOptions": {
-      "outDir": "build/dist",
-      "module": "commonjs",
-      "target": "es5",
-      "lib": ["es6", "dom"],
-      "sourceMap": true,
-      "allowJs": true,
-      "jsx": "react-jsx",
-      "moduleResolution": "node",
-      "rootDir": "src",
-      "noImplicitReturns": true,
-      "noImplicitThis": true,
-      "noImplicitAny": true,
-      "strictNullChecks": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true
-    },
-    "exclude": [
-      "node_modules",
-      "build",
-      "scripts",
-      "acceptance-tests",
-      "webpack",
-      "jest",
-      "src/setupTests.ts"
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "module": "commonjs",
+    "target": "es5",
+    "lib": [
+      "es6",
+      "dom"
     ],
-    "types": [
-      "typePatches"
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ],
+  "types": [
+    "typePatches"
+  ],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}

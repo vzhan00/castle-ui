@@ -2,12 +2,11 @@ import React from "react";
 
 import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
-import { supabase } from "..";
-import { useGetWatchlistByIdQuery, useLazyGetWatchlistByIdQuery } from "../services/WatchlistApi";
 import { WatchlistView } from "./Watchlist";
+import { useLazyGetWatchlistByIdQuery } from "../services/WatchlistApi";
+import { supabase } from "../supabase";
 
 export function Home() {
-    // const { data } = useGetWatchlistByIdQuery('1')
     const [trigger, { data }] = useLazyGetWatchlistByIdQuery();
 
     const onClickWatchlist = () => {

@@ -1,6 +1,6 @@
 
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { supabase } from "..";
+import { supabase } from "../supabase";
 
 export const customBaseQuery = fetchBaseQuery({ 
     baseUrl: 'http://localhost:31000/watchlist/',
