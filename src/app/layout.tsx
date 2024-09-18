@@ -10,14 +10,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const style = {
-    height: '100vh',
-		backgroundImage: `url(swiss_sign.jpg)`,
-    backgroundSize: 'cover',
-		backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-	};
-
   return (
     <html lang="en">
       <Providers>
