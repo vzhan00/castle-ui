@@ -1,3 +1,6 @@
+import Head from "next/head";
+import Image from 'next/legacy/image';
+import StyledComponentsRegistry from "./lib/registry"
 import { Providers } from "./providers"
 
 export const metadata = {
@@ -10,10 +13,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const backgroundImages = [
+		'/swiss_mountains.webp',
+		'/swiss_sign.webp',
+		'/swiss_station.webp',
+		'/swiss_wall.webp',
+	]
+	const index = Math.floor(Math.random() * backgroundImages.length);
+	const currentBackgroundImage = backgroundImages[index]
+  
   return (
     <html lang="en">
       <Providers>
-        <body>{children}</body>
+        <body>
+          <Head>
+            {backgroundImages.map((src, idx) => {
+              return <link key={idx} rel='preload' href={src} as='image' />
+            })}
+          </Head>
+          <div className='background' />
+          <div className='backgroundImage'>
+            <Image
+              src={currentBackgroundImage}
+              priority={true}
+              layout="fill"
+              objectPosition='center'
+              objectFit="cover"
+              alt="Background"
+            />
+        </div>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </body>
       </Providers>
     </html>
   )
