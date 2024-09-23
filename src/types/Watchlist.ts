@@ -4,8 +4,17 @@ export interface WatchlistResponse {
     watchlist: Watchlist;
 }
 
+export interface WatchlistProps {
+    watchlist: Watchlist;
+}
+
 export interface Watchlist {
     watchlistId: number;
     watchlistName: string;
-    movies: Movie[];
+    watchlistItems: WatchlistItem[];
+}
+
+export interface WatchlistItem {
+    watchlistItemId: number;
+    movie: Movie;
 }

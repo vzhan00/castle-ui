@@ -8,15 +8,15 @@ interface WatchlistProps {
 export function WatchlistView({ watchlist }: WatchlistProps) {
     return (
         <Container>
-            <div>{watchlist.watchlistId}</div>
+            {/* <div>{watchlist.watchlistId}</div>
             <div>{watchlist.watchlistName}</div>
-            {watchlist.movies.map(movie => (
+            {watchlist.watchlistItems.map(movie => (
                 <div>
                     <div>{movie.movieId}</div>
                     <div>{movie.title}</div>
                     <div>{movie.director}</div>
                 </div>
-            ))}
+            ))} */}
         </Container>
     )
 }
