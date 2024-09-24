@@ -1,16 +1,22 @@
 'use server';
 
-import SignIn from "../components/SignIn";
-import Image from 'next/legacy/image';
-import Head from 'next/head';
-import './landing.css';
+import { Home } from '../components/Home';
+import { supabase } from '../supabase';
+import { SignInButton } from './SignInButton';
 
 export default async function Landing() {
+	const { data, error } = await supabase.auth.getSession();
+	const session = data.session;
+
+	if (session) {
+		return <Home />;
+	}
+
 	return (
-		<div className='contentContainer'>
+		<div className='contentContainer notSelectable'>
 			<h1>Castle</h1>
 			<div>Quick, easy, and clean way to keep track of your movies and get recommendations</div>
-			<SignIn />
+			<SignInButton />
 		</div>
 	);
 }

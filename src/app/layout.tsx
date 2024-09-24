@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from 'next/legacy/image';
 import StyledComponentsRegistry from "./lib/registry"
 import { Providers } from "./providers"
+import './globals.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -39,9 +40,8 @@ export default function RootLayout({
               layout="fill"
               objectPosition='center'
               objectFit="cover"
-              alt="Background"
             />
-        </div>
+          </div>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </body>
       </Providers>

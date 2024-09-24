@@ -4,11 +4,13 @@ import React from "react";
 
 import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
-import { WatchlistView } from "./Watchlist";
-import { useLazyGetWatchlistByIdQuery } from "../services/WatchlistApi";
-import { supabase } from "../supabase";
+import { useLazyGetWatchlistByIdQuery } from "../../services/WatchlistApi";
+import { supabase } from "../../supabase";
+import { WatchlistView } from "../../components/Watchlist";
+import { useRouter } from "next/navigation";
 
-export function Home() {
+export default function Home() {
+    const router = useRouter();
     const [trigger, { data }] = useLazyGetWatchlistByIdQuery();
 
     const onClickWatchlist = () => {
@@ -16,11 +18,9 @@ export function Home() {
     }
 
     const signOut = () => {
-        console.log(5555)
         supabase.auth.signOut();
+        router.push('/login');
     }
-
-    console.log(data)
 
     return (
         <Container>
@@ -28,5 +28,5 @@ export function Home() {
             <Button onClick={signOut} variant="contained">Log out</Button>
             {data && <WatchlistView watchlist={data.watchlist} />}
         </Container>
-    );
+    )
 }
