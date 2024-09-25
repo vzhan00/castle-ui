@@ -1,6 +1,6 @@
 'use server';
 
-import { Home } from '../components/Home';
+import Home from './home/page';
 import { supabase } from '../supabase';
 import { SignInButton } from './SignInButton';
 
