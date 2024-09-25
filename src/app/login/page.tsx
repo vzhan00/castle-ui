@@ -1,78 +1,93 @@
 'use client';
 
-import { SyntheticEvent, useState } from "react";
-import { useRouter } from 'next/navigation';
-import { supabase } from "../../supabase";
-import { Container, ErrorMessage, Form, Input, LoginButton } from "./styled";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { Container, SignInContainer } from "./styled";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Image from "next/image";
-import LoginIcon from '@mui/icons-material/Login';
+import SignInForm from "./components/SignInForm";
+import SignUpForm from "./components/SignUpForm";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { supabase } from "../../supabase";
 
 export default function Login() {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<number>(0);  
+    const [activeTab, setActiveTab] = useState<string>('sign-in');
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const router = useRouter(); // For redirecting
+    const router = useRouter();
+    
+    useEffect(() => {
+        const checkSession = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
 
-    const handleTabChange = (_event: SyntheticEvent, newValue: number) => {
+            if (session) {
+                router.push('/home');
+            } else {
+                setIsLoading(false);
+            }
+        };
+
+        checkSession();
+    }, [router]);
+
+    const handleTabChange = (_event: SyntheticEvent, newValue: string) => {
         setActiveTab(newValue);
-        setError(null); // Clear error on tab change
     };
 
-    const handleSignIn = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError(null);
+    const handleBackClick = () => {
+        router.push('/');
+    }
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        });
-
-        if (error) {
-            setError(error.message);
-        } else {
-            // Redirect to the home page or handle success
-            router.push('/home');
-        }
-    };
+    if (isLoading) {
+        return;
+    }
 
     return (
         <Container>
-            <Form onSubmit={handleSignIn}>
-                <Tabs value={activeTab} variant="fullWidth" onChange={handleTabChange} sx={{ marginTop: '-10px', width: '100%' }}>
-                    <Tab label="Sign In" />
-                    <Tab label="Sign Up" />
+            <IconButton onClick={handleBackClick} style={{ 
+                    position: 'absolute',
+                    color: '#222222',
+                    top: 50,
+                    left: 50,
+                }}>
+                <ArrowBackIcon style={{
+                    fontSize: 30,
+                }}/>
+            </IconButton>
+            
+            <SignInContainer>
+                <Tabs 
+                    value={activeTab} 
+                    variant="fullWidth" 
+                    onChange={handleTabChange}
+                    TabIndicatorProps={{
+                        sx: {
+                          backgroundColor: '#222222', // Color of the underline indicator
+                        },
+                    }}
+                    sx={{ 
+                        fontWeight: 'bold',
+                        marginTop: '-10px',
+                        marginBottom: '20px',
+                        width: '100%',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        '& .MuiTab-root': {
+                            color: '#222222',
+                            '&.Mui-selected': {
+                                color: '#222222',          // Gray color for selected tab
+                            },
+                        },
+                    }}
+                >
+                    <Tab label="Sign In" value={'sign-in'} disableRipple />
+                    <Tab label="Sign Up" value={'sign-up'} disableRipple />
                 </Tabs>
-                {error && <ErrorMessage>{error}</ErrorMessage>}
-                <Input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <LoginButton>
-                    <IconButton
-                        type="submit"
-                        sx={{
-                            margin: '0 auto'
-                        }}
-                    >
-                        <LoginIcon />
-                    </IconButton >
-                </LoginButton>
-            </Form>
+                {(activeTab === 'sign-in') && <SignInForm />}
+                {(activeTab === 'sign-up') && <SignUpForm />}
+            </SignInContainer>
         </Container>
     );
 }

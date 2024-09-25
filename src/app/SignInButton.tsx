@@ -16,7 +16,7 @@ export function SignInButton() {
             sx={{
                 borderRadius: '50px', // Rounded edges
                 backgroundColor: 'black',
-                opacity: '0.7',
+                opacity: '0.9',
                 backdropFilter: 'blur(5px)', // Optional: adds blur for a frosted effect
                 color: '#fff', // Text color
                 padding: '10px 20px', // Padding for a larger button
@@ -24,7 +24,7 @@ export function SignInButton() {
                 boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)', // Slight shadow
                 '&:hover': {
                 backgroundColor: 'black',
-                opacity: '0.8' // Slightly less transparent on hover
+                opacity: '1' // Slightly less transparent on hover
                 },
             }}
             onClick={handleClick}
