@@ -47,8 +47,6 @@ export default function Home() {
         }
     }, [isSuccess])
 
-    console.log(watchlists)
-
     const signOut = () => {
         supabase.auth.signOut();
         router.push('/login');
