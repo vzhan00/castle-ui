@@ -7,11 +7,15 @@ import Button from "@mui/material/Button";
 import { supabase } from "../../supabase";
 import { useRouter } from "next/navigation";
 import { ListContainer } from "../../components/ListContainer";
-import { useGetAllWatchlistsQuery } from "../../services/WatchlistApi";
+import { useCreateDefaultWatchlistsMutation, useGetAllWatchlistsQuery } from "../../services/WatchlistApi";
 
 export default function Home() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [createDefaultWatchlists, { isLoading: isCreating, isSuccess }] = useCreateDefaultWatchlistsMutation();
+    
+    const { data: watchlistsResponse, isLoading: watchlistsLoading, refetch  } = useGetAllWatchlistsQuery();
+    const watchlists = watchlistsResponse?.allWatchlists
 
     useEffect(() => {
         const checkSession = async () => {
@@ -23,19 +27,34 @@ export default function Home() {
                 setIsLoading(false);
             }
         };
-
+        
         checkSession();
     }, [router]);
 
-    const watchlistsResponse = useGetAllWatchlistsQuery().data;
-    const watchlists = watchlistsResponse?.allWatchlists
+    useEffect(() => {
+        const createDefaultsIfNewUser = async () => {
+            if (!watchlistsLoading && !isCreating && watchlists?.length === 0)  {
+                await createDefaultWatchlists();
+            }
+        }
+
+        createDefaultsIfNewUser();
+    }, [watchlistsLoading])
+
+    useEffect(() => {
+        if (isSuccess) {
+            refetch();
+        }
+    }, [isSuccess])
+
+    console.log(watchlists)
 
     const signOut = () => {
         supabase.auth.signOut();
         router.push('/login');
     }
 
-    if (isLoading) {
+    if (isLoading || isCreating) {
         return;
     }
 

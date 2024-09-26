@@ -7,10 +7,16 @@ export const watchlistApi = createApi({
     baseQuery: customBaseQuery,
     endpoints: (builder) => ({
         getWatchlistById: builder.query<WatchlistResponse, string>({
-            query: (watchlistId) => `getWatchlist/${watchlistId}`,
+            query: (watchlistId) => `watchlist/getWatchlist/${watchlistId}`,
         }),
         getAllWatchlists: builder.query<AllWatchlistsResponse, void>({
-            query: () => `getAllWatchlists`,
+            query: () => 'watchlist/getAllWatchlists',
+        }),
+        createDefaultWatchlists: builder.mutation<void, void>({
+            query: () => ({
+                url: 'watchlist/createDefaultWatchlists',
+                method: 'POST',
+            }),
         }),
     }),
 });
@@ -20,4 +26,5 @@ export const {
     useLazyGetWatchlistByIdQuery,
     useGetAllWatchlistsQuery,
     useLazyGetAllWatchlistsQuery,
+    useCreateDefaultWatchlistsMutation,
 } = watchlistApi;
