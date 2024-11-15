@@ -6,6 +6,8 @@ import { PosterGrid } from "./PosterGrid";
 import AddIcon from "@mui/icons-material/Add";
 import { BiExpandAlt } from "react-icons/bi";
 import { IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
 
 interface ListContainerProp {
     watchlist: Watchlist;
@@ -26,6 +28,23 @@ export function ListContainer({
                     textShadow: "2px 2px 5px black",
                 }}
             >
+                {watchlist.isWatchedList ? <VisibilityIcon sx={{
+                        color: "black",
+                        height: 37,
+                        width: 37,
+                        position: "absolute",
+                        top: 8,
+                        left: 10,
+                        zIndex: 1,
+                    }} /> : <WatchLaterIcon sx={{
+                        color: "#404040",
+                        height: 37,
+                        width: 37,
+                        position: "absolute",
+                        top: 8,
+                        left: 10,
+                        zIndex: 1,
+                    }} />}
                 <IconButton
                     sx={{
                         height: 37,
@@ -57,7 +76,7 @@ export function ListContainer({
                 </IconButton>
                 <Card
                     sx={{
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
+                        backgroundColor: watchlist.isWatchedList ? "rgba(64, 64, 64, 0.3)" : "rgba(255, 255, 255, 0.3)",
                         height: 407,
                         width: 500,
                         overflowY: "auto",

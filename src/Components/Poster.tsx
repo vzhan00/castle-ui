@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
-import { useDeleteWatchlistItemMutation } from "../services/WatchlistApi";
+import { useDeleteWatchlistItemMutation, useAddWatchlistItemMutation } from "../services/WatchlistApi";
 import { Watchlist, WatchlistItemProps } from "../types/Watchlist";
 import { WatchlistsContext } from "../app/contexts/WatchlistsContext";
 
@@ -10,12 +10,14 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
     const context = useContext(WatchlistsContext);
     const watchlists = context?.watchlists;
     const setWatchlists = context?.setWatchlists;
+    const watchedListId = context?.watchedListId;
     const [deleteWatchlistItemTrigger] = useDeleteWatchlistItemMutation();
+    const [addWatchlistItemTrigger] = useAddWatchlistItemMutation();
     const [isHovered, setIsHovered] = useState(false);
 
-    const handleDeleteClick = (watchlistItemId: number) => {
+    const handleDeleteClick = () => {
         deleteWatchlistItemTrigger({
-            watchlistItemId: watchlistItemId,
+            watchlistItemId: watchlistItem.watchlistItemId,
         });
         setWatchlists!(
             watchlists?.map((wl) => {
@@ -25,6 +27,40 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                             item.watchlistItemId !==
                             watchlistItem.watchlistItemId
                     );
+                    const newWL: Watchlist = {
+                        ...wl,
+                        watchlistItems: newWLIs,
+                    };
+                    return newWL;
+                } else {
+                    return wl;
+                }
+            })
+        );
+    };
+    const handleSeenClick = () => {
+        addWatchlistItemTrigger({
+            watchlistId: watchedListId,
+            movieId: watchlistItem.movie.movieId,
+        });
+        deleteWatchlistItemTrigger({
+            watchlistItemId: watchlistItem.watchlistItemId,
+        });
+        setWatchlists!(
+            watchlists?.map((wl) => {
+                if (wl.watchlistId === watchlistId) {
+                    const newWLIs = wl.watchlistItems.filter(
+                        (item) =>
+                            item.watchlistItemId !==
+                            watchlistItem.watchlistItemId
+                    );
+                    const newWL: Watchlist = {
+                        ...wl,
+                        watchlistItems: newWLIs,
+                    };
+                    return newWL;
+                } else if (wl.watchlistId === watchedListId) {
+                    const newWLIs = [...wl.watchlistItems, watchlistItem];
                     const newWL: Watchlist = {
                         ...wl,
                         watchlistItems: newWLIs,
@@ -72,7 +108,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                         zIndex: 1,
                     }}
                     onClick={() =>
-                        handleDeleteClick(watchlistItem.watchlistItemId)
+                        handleDeleteClick()
                     }
                 >
                     <DeleteIcon sx={{ fontSize: "medium" }} />
@@ -93,6 +129,9 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                         right: 13,
                         zIndex: 1,
                     }}
+                    onClick={() =>
+                        handleSeenClick()
+                    }
                 >
                     <VisibilityIcon sx={{ fontSize: "medium" }} />
                 </Button>

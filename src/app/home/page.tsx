@@ -26,6 +26,7 @@ export default function Home() {
         undefined
     );
     const [addedMovie, setAddedMovie] = useState<Movie | undefined>(undefined);
+    const [watchedListId, setWatchedListId] = useState<number | undefined>(undefined);
 
     const {
         data: watchlistsResponse,
@@ -40,6 +41,12 @@ export default function Home() {
             setWatchlists(watchlistsInit);
         }
     }, [watchlistsLoading]);
+
+    useEffect(() => {
+        console.log(watchlists)
+        setWatchedListId(watchlists?.find(wl => wl.isWatchedList)?.watchlistId);
+        console.log(watchedListId)
+    }, [watchlists]);
 
     const [open, setOpen] = React.useState(false);
     const [modalWatchlist, setModalWatchlist] = useState<Watchlist | null>(
@@ -99,7 +106,7 @@ export default function Home() {
                 Log out
             </Button>
             <WatchlistsContext.Provider
-                value={{ watchlists, setWatchlists, addedMovie, setAddedMovie }}
+                value={{ watchlists, setWatchlists, addedMovie, setAddedMovie, watchedListId }}
             >
                 {watchlists?.map((watchlist) => (
                     <ListContainer

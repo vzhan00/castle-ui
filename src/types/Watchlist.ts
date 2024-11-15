@@ -11,6 +11,7 @@ export interface WatchlistProps {
 export interface Watchlist {
     watchlistId: number;
     watchlistName: string;
+    isWatchedList: boolean;
     watchlistItems: WatchlistItem[];
 }
 
