@@ -19,6 +19,17 @@ export interface WatchlistItem {
     movie: Movie;
 }
 
+export interface WatchlistItemProps {
+    watchlistItem: WatchlistItem;
+    watchlistId: number;
+}
+
 export interface AllWatchlistsResponse {
     allWatchlists: Watchlist[]
+}
+
+export interface WatchlistItemTableEntry {
+    watchlistItemId: number;
+    watchlistId: number;
+    movieId: number;
 }

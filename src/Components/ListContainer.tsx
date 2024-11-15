@@ -1,13 +1,21 @@
-import { Button, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 import Card from "@mui/material/Card";
 import Draggable from "react-draggable";
-import { WatchlistProps } from "../types/Watchlist";
+import { Watchlist } from "../types/Watchlist";
 import { PosterGrid } from "./PosterGrid";
 import AddIcon from "@mui/icons-material/Add";
 import { BiExpandAlt } from "react-icons/bi";
 import { IconButton } from "@mui/material";
 
-export function ListContainer({ watchlist }: WatchlistProps) {
+interface ListContainerProp {
+    watchlist: Watchlist;
+    openModalWithWatchlist: (watchlist: Watchlist) => void;
+}
+
+export function ListContainer({
+    watchlist,
+    openModalWithWatchlist,
+}: ListContainerProp) {
     return (
         <Draggable>
             <div
@@ -18,24 +26,35 @@ export function ListContainer({ watchlist }: WatchlistProps) {
                     textShadow: "2px 2px 5px black",
                 }}
             >
-                <IconButton sx={{
+                <IconButton
+                    sx={{
                         height: 37,
                         width: 37,
                         position: "absolute",
                         top: 55,
-                        right: 15,
-                        zIndex: 1
-                    }}><AddIcon/></IconButton>
-                    <IconButton sx={{
+                        right: 10,
+                        zIndex: 1,
+                    }}
+                    onClick={() => openModalWithWatchlist(watchlist)}
+                >
+                    <AddIcon />
+                </IconButton>
+                <IconButton
+                    sx={{
                         height: 37,
                         width: 37,
                         position: "absolute",
                         top: 8,
-                        right: 15,
-                        zIndex: 1
-                    }}><BiExpandAlt style={{
-                        fontSize: 20
-                    }}/></IconButton>
+                        right: 10,
+                        zIndex: 1,
+                    }}
+                >
+                    <BiExpandAlt
+                        style={{
+                            fontSize: 20,
+                        }}
+                    />
+                </IconButton>
                 <Card
                     sx={{
                         backgroundColor: "rgba(255, 255, 255, 0.3)",
@@ -48,11 +67,13 @@ export function ListContainer({ watchlist }: WatchlistProps) {
                         backdropFilter: "blur(5px)",
                     }}
                 >
-                        <CardContent sx={{
-                            padding: 5
-                        }}>
-                            <PosterGrid watchlist={watchlist} />
-                        </CardContent>
+                    <CardContent
+                        sx={{
+                            padding: 5,
+                        }}
+                    >
+                        <PosterGrid watchlist={watchlist} />
+                    </CardContent>
                 </Card>
 
                 <h3 style={{ textShadow: "6px 6px 15px rgba(0, 0, 0, 1)" }}>
