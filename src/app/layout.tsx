@@ -32,7 +32,6 @@ export default function RootLayout({
               return <link key={idx} rel='preload' href={src} as='image' />
             })}
           </Head>
-          <div className='background' />
           <div className='backgroundImage'>
             <Image
               src={currentBackgroundImage}

@@ -16,6 +16,8 @@ import Modal from "@mui/material/Modal";
 import { Watchlist } from "../../types/Watchlist";
 import { WatchlistsContext } from "../contexts/WatchlistsContext";
 import { Movie } from "../../types/Movie";
+import { Grid2 } from "@mui/material";
+import HomeAppBar from "../../components/Appbar";
 
 export default function Home() {
     const router = useRouter();
@@ -101,19 +103,20 @@ export default function Home() {
     }
 
     return (
-        <Container>
-            <Button onClick={signOut} variant="contained">
-                Log out
-            </Button>
+        <Container maxWidth={false} style={{padding: 0}}>
+            <HomeAppBar/>
             <WatchlistsContext.Provider
                 value={{ watchlists, setWatchlists, addedMovie, setAddedMovie, watchedListId }}
             >
+                <Grid2 container spacing={6}>
                 {watchlists?.map((watchlist) => (
+                    <Grid2 size={4}>
                     <ListContainer
                         watchlist={watchlist}
                         openModalWithWatchlist={openModalWithWatchlist}
-                    />
+                    /></Grid2>
                 ))}
+                </Grid2>
                 <Modal
                     sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.3)",
