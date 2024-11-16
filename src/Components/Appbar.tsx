@@ -23,10 +23,9 @@ export default function HomeAppBar() {
         backgroundColor: "rgba(0,0,0,0)",
         boxShadow: "none"
       }}>
-        <Toolbar sx={{height: 25, padding: 0, margin: 0, color: "#141414"}}>
+        <Toolbar sx={{height: 25, padding: 0, margin: 0, color: "#324352"}}>
           <CastleIcon sx={{mr: 2}}/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Castle
           </Typography>
           <IconButton>
             <SettingsIcon/>

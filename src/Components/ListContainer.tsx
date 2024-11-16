@@ -30,16 +30,16 @@ export function ListContainer({
             >
                 {watchlist.isWatchedList ? <VisibilityIcon sx={{
                         color: "black",
-                        height: 37,
-                        width: 37,
+                        height: 30,
+                        width: 30,
                         position: "absolute",
                         top: 8,
                         left: 10,
                         zIndex: 1,
                     }} /> : <WatchLaterIcon sx={{
-                        color: "#404040",
-                        height: 37,
-                        width: 37,
+                        color: "#324352",
+                        height: 30,
+                        width: 30,
                         position: "absolute",
                         top: 8,
                         left: 10,
@@ -95,7 +95,7 @@ export function ListContainer({
                     </CardContent>
                 </Card>
 
-                <h3 style={{ textShadow: "6px 6px 15px rgba(0, 0, 0, 1)" }}>
+                <h3 style={{ textShadow: "6px 6px 15px rgba(0, 0, 0, 1)", fontFamily: "'San Francisco', sans-serif" }}>
                     {watchlist.watchlistName}
                 </h3>
             </div>

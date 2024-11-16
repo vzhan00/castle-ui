@@ -108,15 +108,20 @@ export default function Home() {
             <WatchlistsContext.Provider
                 value={{ watchlists, setWatchlists, addedMovie, setAddedMovie, watchedListId }}
             >
-                <Grid2 container spacing={6}>
+                <Container maxWidth={false} style={{paddingTop: 50}}>
+                <Grid2 container>
                 {watchlists?.map((watchlist) => (
-                    <Grid2 size={4}>
+                    <Grid2 size={6} style={{
+                        display: "flex",
+                        justifyContent: "center", // Horizontally center
+                      }}>
                     <ListContainer
                         watchlist={watchlist}
                         openModalWithWatchlist={openModalWithWatchlist}
                     /></Grid2>
                 ))}
                 </Grid2>
+                </Container>
                 <Modal
                     sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.3)",
