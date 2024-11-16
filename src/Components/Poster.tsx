@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { useDeleteWatchlistItemMutation, useAddWatchlistItemMutation } from "../services/WatchlistApi";
 import { Watchlist, WatchlistItemProps } from "../types/Watchlist";
 import { WatchlistsContext } from "../app/contexts/WatchlistsContext";
+import CheckIcon from '@mui/icons-material/Check';
 
 export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
     const context = useContext(WatchlistsContext);
@@ -103,7 +104,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                         height: 25,
                         width: 25,
                         position: "absolute",
-                        bottom: 40,
+                        bottom: 10,
                         right: 13,
                         zIndex: 1,
                     }}
@@ -114,7 +115,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                     <DeleteIcon sx={{ fontSize: "medium" }} />
                 </Button>
             )}
-            {isHovered && (
+            {isHovered && watchlistId != watchedListId && (
                 <Button
                     variant="contained"
                     sx={{
@@ -125,7 +126,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                         height: 25,
                         width: 25,
                         position: "absolute",
-                        bottom: 10,
+                        bottom: 40,
                         right: 13,
                         zIndex: 1,
                     }}
@@ -133,7 +134,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                         handleSeenClick()
                     }
                 >
-                    <VisibilityIcon sx={{ fontSize: "medium" }} />
+                    <CheckIcon sx={{ fontSize: "medium" }} />
                 </Button>
             )}
         </div>

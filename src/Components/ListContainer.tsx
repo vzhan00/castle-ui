@@ -28,7 +28,7 @@ export function ListContainer({
                     textShadow: "2px 2px 5px black",
                 }}
             >
-                {watchlist.isWatchedList ? <VisibilityIcon sx={{
+                {/* {watchlist.isWatchedList ? <VisibilityIcon sx={{
                         color: "black",
                         height: 30,
                         width: 30,
@@ -44,14 +44,14 @@ export function ListContainer({
                         top: 8,
                         left: 10,
                         zIndex: 1,
-                    }} />}
+                    }} />} */}
                 <IconButton
                     sx={{
                         height: 37,
                         width: 37,
                         position: "absolute",
                         top: 55,
-                        right: 10,
+                        right: 8,
                         zIndex: 1,
                     }}
                     onClick={() => openModalWithWatchlist(watchlist)}
@@ -64,7 +64,7 @@ export function ListContainer({
                         width: 37,
                         position: "absolute",
                         top: 8,
-                        right: 10,
+                        right: 8,
                         zIndex: 1,
                     }}
                 >
@@ -82,7 +82,7 @@ export function ListContainer({
                         overflowY: "auto",
                         scrollbarWidth: "thin",
                         scrollbarColor: "transparent transparent",
-                        borderRadius: 8,
+                        borderRadius: 4,
                         backdropFilter: "blur(5px)",
                     }}
                 >
