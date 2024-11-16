@@ -8,6 +8,7 @@ import "./SearchBar.css";
 import { useAddWatchlistItemMutation } from "../../services/WatchlistApi";
 import { Watchlist, WatchlistItem } from "../../types/Watchlist";
 import { WatchlistsContext } from "../../app/contexts/WatchlistsContext";
+import { SearchBarSuggestion } from "./SearchBarSuggestion";
 
 interface searchValue {
     value: string;
@@ -21,13 +22,11 @@ interface SearchBarProp {
 export function SearchBar({ watchlist, closeModal }: SearchBarProp) {
     const context = useContext(WatchlistsContext);
     const watchlists = context?.watchlists;
-    const setWatchlists = context?.setWatchlists;
     console.log("in searchbar");
     console.log(watchlists);
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<MovieSearchResult[]>([]);
     const [searchMovieTrigger] = useLazySearchMovieQuery();
-    const [addWatchlistItemTrigger] = useAddWatchlistItemMutation();
 
     const fetchSuggestions = async (value: string) => {
         const response = await searchMovieTrigger(value);
@@ -35,7 +34,11 @@ export function SearchBar({ watchlist, closeModal }: SearchBarProp) {
         console.log("search results");
         console.log(searchResults);
         if (searchResults) {
-            setSuggestions(searchResults);
+            if (searchResults.length > 8) {
+                setSuggestions(searchResults?.slice(0, 8));
+            } else {
+                setSuggestions(searchResults);
+            }
         }
     };
 
@@ -47,69 +50,20 @@ export function SearchBar({ watchlist, closeModal }: SearchBarProp) {
         setSuggestions([]);
     };
 
-    const handleClick = (movie: Movie) => {
-        closeModal();
-        addWatchlistItemTrigger({
-            watchlistId: watchlist.watchlistId,
-            movieId: movie.movieId,
-        });
-        const maxId = Math.max(
-            ...watchlist.watchlistItems.map((item) => item.watchlistItemId)
-        );
-        const newWLI: WatchlistItem = {
-            watchlistItemId: maxId + 1,
-            movie: movie,
-        };
-
-        setWatchlists!(
-            watchlists?.map((wl) => {
-                if (wl.watchlistId === watchlist.watchlistId) {
-                    const newWLIs = [...wl.watchlistItems, newWLI];
-                    const newWL: Watchlist = {
-                        ...wl,
-                        watchlistItems: newWLIs,
-                    };
-                    return newWL;
-                } else {
-                    return wl;
-                }
-            })
-        );
-    };
-
     const getSuggestionValue = (suggestion: MovieSearchResult) =>
         suggestion.title;
 
     const renderSuggestion = (suggestion: MovieSearchResult) => (
-        <Box
-            sx={{
-                bgcolor: "rgba(255, 255, 255, 0.3)",
-            }}
-            onClick={() => {
-                const newMovie: Movie = {
-                    movieId: suggestion.movieId,
-                    posterPath: suggestion.posterPath,
-                    director: "",
-                    title: suggestion.title,
-                };
-                handleClick(newMovie);
-            }}
-        >
-            <img
-                src={"https://image.tmdb.org/t/p/w500" + suggestion.posterPath}
-                style={{
-                    width: "20px", // Fixed width
-                    height: "30px", // Fixed height
-                    objectFit: "cover", // Maintain aspect ratio, crop if necessary
-                    borderRadius: 2,
-                }}
-            ></img>
-            {suggestion.title}
-        </Box>
+        <SearchBarSuggestion
+            watchlist={watchlist}
+            suggestion={suggestion}
+            isLast={suggestion === suggestions[suggestions.length - 1]}
+            closeModal={closeModal}
+        />
     );
 
     return (
-        <div>
+        <div style={{ paddingTop: 100 }} onClick={closeModal}>
             <Autosuggest
                 suggestions={suggestions}
                 onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -117,9 +71,11 @@ export function SearchBar({ watchlist, closeModal }: SearchBarProp) {
                 getSuggestionValue={getSuggestionValue}
                 renderSuggestion={renderSuggestion}
                 inputProps={{
-                    placeholder: "Search",
+                    placeholder: "Search Movie",
                     value: query,
                     onChange: (_, { newValue }) => setQuery(newValue),
+                    className: query === "" || !suggestions || suggestions.length == 0 ? "input-empty" : "input-filled",
+                    onClick: (e) => e.stopPropagation()
                 }}
             />
         </div>

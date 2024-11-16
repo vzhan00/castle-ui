@@ -28,7 +28,9 @@ export default function Home() {
         undefined
     );
     const [addedMovie, setAddedMovie] = useState<Movie | undefined>(undefined);
-    const [watchedListId, setWatchedListId] = useState<number | undefined>(undefined);
+    const [watchedListId, setWatchedListId] = useState<number | undefined>(
+        undefined
+    );
 
     const {
         data: watchlistsResponse,
@@ -45,9 +47,11 @@ export default function Home() {
     }, [watchlistsLoading]);
 
     useEffect(() => {
-        console.log(watchlists)
-        setWatchedListId(watchlists?.find(wl => wl.isWatchedList)?.watchlistId);
-        console.log(watchedListId)
+        console.log(watchlists);
+        setWatchedListId(
+            watchlists?.find((wl) => wl.isWatchedList)?.watchlistId
+        );
+        console.log(watchedListId);
     }, [watchlists]);
 
     const [open, setOpen] = React.useState(false);
@@ -103,29 +107,43 @@ export default function Home() {
     }
 
     return (
-        <Container maxWidth={false} style={{padding: 0}}>
-            <HomeAppBar/>
+        <Container maxWidth={false} style={{ padding: 0 }}>
+            <HomeAppBar />
             <WatchlistsContext.Provider
-                value={{ watchlists, setWatchlists, addedMovie, setAddedMovie, watchedListId }}
+                value={{
+                    watchlists,
+                    setWatchlists,
+                    addedMovie,
+                    setAddedMovie,
+                    watchedListId,
+                }}
             >
-                <Container maxWidth={false} style={{paddingTop: 50}}>
-                <Grid2 container>
-                {watchlists?.map((watchlist) => (
-                    <Grid2 size={6} style={{
-                        display: "flex",
-                        justifyContent: "center", // Horizontally center
-                      }}>
-                    <ListContainer
-                        watchlist={watchlist}
-                        openModalWithWatchlist={openModalWithWatchlist}
-                    /></Grid2>
-                ))}
-                </Grid2>
+                <Container maxWidth={false} style={{ paddingTop: "5%" }}>
+                    <Grid2 container>
+                        {watchlists?.map((watchlist) => (
+                            <Grid2
+                                size={6}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center", // Horizontally center
+                                }}
+                            >
+                                <ListContainer
+                                    watchlist={watchlist}
+                                    openModalWithWatchlist={
+                                        openModalWithWatchlist
+                                    }
+                                />
+                            </Grid2>
+                        ))}
+                    </Grid2>
                 </Container>
                 <Modal
                     sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.3)",
                         backdropFilter: "blur(5px)",
+                        display: "flex",
+                        justifyContent: "center", // Horizontally center
                     }}
                     open={open}
                     onClose={handleClose}
