@@ -6,6 +6,7 @@ import "./SearchBar.css";
 import { useAddWatchlistItemMutation } from "../../services/WatchlistApi";
 import { Watchlist, WatchlistItem } from "../../types/Watchlist";
 import { WatchlistsContext } from "../../app/contexts/WatchlistsContext";
+import { v4 as uuidv4 } from "uuid";
 
 interface SearchBarSuggestionProp {
     watchlist: Watchlist;
@@ -23,17 +24,17 @@ export function SearchBarSuggestion({ watchlist, suggestion, isLast, closeModal 
 
     const handleClick = (movie: Movie) => {
         closeModal();
+        const newWatchlistItemId = uuidv4()
+        const newWLI: WatchlistItem = {
+            watchlistItemId: newWatchlistItemId,
+            movie: movie,
+        };
         addWatchlistItemTrigger({
             watchlistId: watchlist.watchlistId,
             movieId: movie.movieId,
+            watchlistItemId: newWatchlistItemId
         });
-        const maxId = Math.max(
-            ...watchlist.watchlistItems.map((item) => item.watchlistItemId)
-        );
-        const newWLI: WatchlistItem = {
-            watchlistItemId: maxId + 1,
-            movie: movie,
-        };
+        
 
         setWatchlists!(
             watchlists?.map((wl) => {
@@ -49,13 +50,14 @@ export function SearchBarSuggestion({ watchlist, suggestion, isLast, closeModal 
                 }
             })
         );
+        console.log(watchlists);
     };
 
     return (
         <Box
             sx={{
                 fontSize: 24,
-                width: 820,
+                width: 830,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 bgcolor: isHovered ? "rgba(200, 200, 200, 0.6)" : "rgba(230, 230, 230, 0.6)",

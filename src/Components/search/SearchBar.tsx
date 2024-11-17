@@ -5,7 +5,6 @@ import { MovieSearchResult } from "../../types/Search";
 import { Box } from "@mui/material";
 import { useLazySearchMovieQuery } from "../../services/MovieApi";
 import "./SearchBar.css";
-import { useAddWatchlistItemMutation } from "../../services/WatchlistApi";
 import { Watchlist, WatchlistItem } from "../../types/Watchlist";
 import { WatchlistsContext } from "../../app/contexts/WatchlistsContext";
 import { SearchBarSuggestion } from "./SearchBarSuggestion";

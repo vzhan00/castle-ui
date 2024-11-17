@@ -40,9 +40,12 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
         );
     };
     const handleSeenClick = () => {
+        console.log("handleSeen");
+        console.log(watchlistItem.watchlistItemId)
         addWatchlistItemTrigger({
             watchlistId: watchedListId,
             movieId: watchlistItem.movie.movieId,
+            watchlistItemId: watchlistItem.watchlistItemId
         });
         deleteWatchlistItemTrigger({
             watchlistItemId: watchlistItem.watchlistItemId,

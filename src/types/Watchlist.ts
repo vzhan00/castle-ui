@@ -9,20 +9,20 @@ export interface WatchlistProps {
 }
 
 export interface Watchlist {
-    watchlistId: number;
+    watchlistId: string;
     watchlistName: string;
     isWatchedList: boolean;
     watchlistItems: WatchlistItem[];
 }
 
 export interface WatchlistItem {
-    watchlistItemId: number;
+    watchlistItemId: string;
     movie: Movie;
 }
 
 export interface WatchlistItemProps {
     watchlistItem: WatchlistItem;
-    watchlistId: number;
+    watchlistId: string;
 }
 
 export interface AllWatchlistsResponse {
@@ -30,7 +30,7 @@ export interface AllWatchlistsResponse {
 }
 
 export interface WatchlistItemTableEntry {
-    watchlistItemId: number;
-    watchlistId: number;
+    watchlistItemId: string;
+    watchlistId: string;
     movieId: number;
 }

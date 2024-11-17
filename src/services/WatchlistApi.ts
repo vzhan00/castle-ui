@@ -12,15 +12,15 @@ export const watchlistApi = createApi({
         getAllWatchlists: builder.query<AllWatchlistsResponse, void>({
             query: () => "watchlist/getAllWatchlists",
         }),
-        createDefaultWatchlists: builder.mutation<void, void>({
-            query: () => ({
-                url: "watchlist/createDefaultWatchlists",
+        createDefaultWatchlists: builder.mutation<void, any>({
+            query: ({ watchlistId, watchedListId }) => ({
+                url: `watchlist/createDefaultWatchlists/${watchlistId}/${watchedListId}`,
                 method: "POST",
             }),
         }),
         addWatchlistItem: builder.mutation<void, any>({
-            query: ({ watchlistId, movieId }) => ({
-                url: `watchlist/addWatchlistItem/${watchlistId}/${movieId}`,
+            query: ({ watchlistId, movieId, watchlistItemId }) => ({
+                url: `watchlist/addWatchlistItem/${watchlistId}/${movieId}/${watchlistItemId}`,
                 method: "POST",
             }),
         }),

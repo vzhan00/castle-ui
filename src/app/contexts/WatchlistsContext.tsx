@@ -9,7 +9,7 @@ interface WatchlistContextType {
     >;
     addedMovie: Movie | undefined;
     setAddedMovie: React.Dispatch<React.SetStateAction<Movie | undefined>>;
-    watchedListId: number | undefined;
+    watchedListId: string | undefined;
 }
 
 export const WatchlistsContext = createContext<

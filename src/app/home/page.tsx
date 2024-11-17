@@ -18,6 +18,7 @@ import { WatchlistsContext } from "../contexts/WatchlistsContext";
 import { Movie } from "../../types/Movie";
 import { Grid2 } from "@mui/material";
 import HomeAppBar from "../../components/Appbar";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
     const router = useRouter();
@@ -28,7 +29,7 @@ export default function Home() {
         undefined
     );
     const [addedMovie, setAddedMovie] = useState<Movie | undefined>(undefined);
-    const [watchedListId, setWatchedListId] = useState<number | undefined>(
+    const [watchedListId, setWatchedListId] = useState<string | undefined>(
         undefined
     );
 
@@ -82,14 +83,20 @@ export default function Home() {
     }, [router]);
 
     useEffect(() => {
+        const wlid = uuidv4();
+        const wedid = uuidv4();
         const createDefaultsIfNewUser = async () => {
-            if (!watchlistsLoading && !isCreating && watchlists?.length === 0) {
-                await createDefaultWatchlists();
+            if (!watchlistsLoading && !isCreating && watchlists?.length == 0) {
+                await createDefaultWatchlists({watchlistId: wlid, watchedListId: wedid});
             }
         };
-
         createDefaultsIfNewUser();
-    }, [watchlistsLoading]);
+        const newWl = {watchlistId: wlid, watchlistName: "Watchlist", isWatchedList: false, watchlistItems: []}
+        const newWed = {watchlistId: wedid, watchlistName: "Watched", isWatchedList: true, watchlistItems: []}
+        if (watchlists?.length === 0 && !watchlistsLoading) {
+            setWatchlists([newWl, newWed]);
+        }
+    }, [watchlists]);
 
     useEffect(() => {
         if (isSuccess) {
