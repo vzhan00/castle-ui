@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip/Tooltip";
 import { useDeleteWatchlistItemMutation, useAddWatchlistItemMutation } from "../services/WatchlistApi";
 import { Watchlist, WatchlistItemProps } from "../types/Watchlist";
 import { WatchlistsContext } from "../app/contexts/WatchlistsContext";
@@ -81,7 +81,9 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
+            <Tooltip title={watchlistItem.movie.title} followCursor enterDelay={500} leaveDelay={100}>
             <img
+                data-tooltip-id="my-tooltip-1"
                 src={
                     "https://image.tmdb.org/t/p/w500" +
                     watchlistItem.movie.posterPath
@@ -92,7 +94,7 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
                     objectFit: "cover", // Maintain aspect ratio, crop if necessary
                     borderRadius: 10,
                 }}
-            ></img>
+            /> </Tooltip>
             {isHovered && (
                 <Button
                     variant="contained"

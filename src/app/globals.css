@@ -4,6 +4,7 @@ body {
     height: 100%; /* Ensure the background covers the full page */
     position: relative;
     box-sizing: border-box;
+    font-family: San Francisco, sans-serif;
 }
 
 .backgroundImage {

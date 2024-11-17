@@ -89,7 +89,7 @@ export function SearchBarSuggestion({ watchlist, suggestion, isLast, closeModal 
                     marginTop: 5
                 }}
             ></img>
-            {suggestion.title}</div>
+            {suggestion.title + " (" + suggestion.releaseDate.slice(0, 4) + ")"}</div>
         </Box>
     )
 }

@@ -121,6 +121,24 @@ export default function Home() {
                 <Container maxWidth={false} style={{ paddingTop: "5%" }}>
                     <Grid2 container>
                         {watchlists?.map((watchlist) => (
+                            !watchlist.isWatchedList &&
+                            <Grid2
+                                size={6}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center", // Horizontally center
+                                }}
+                            >
+                                <ListContainer
+                                    watchlist={watchlist}
+                                    openModalWithWatchlist={
+                                        openModalWithWatchlist
+                                    }
+                                />
+                            </Grid2>
+                        ))}
+                        {watchlists?.map((watchlist) => (
+                            watchlist.isWatchedList &&
                             <Grid2
                                 size={6}
                                 style={{

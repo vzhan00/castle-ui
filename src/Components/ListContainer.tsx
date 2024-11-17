@@ -6,8 +6,7 @@ import { PosterGrid } from "./PosterGrid";
 import AddIcon from "@mui/icons-material/Add";
 import { BiExpandAlt } from "react-icons/bi";
 import { IconButton } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import { useState } from "react";
 
 interface ListContainerProp {
     watchlist: Watchlist;
@@ -18,6 +17,12 @@ export function ListContainer({
     watchlist,
     openModalWithWatchlist,
 }: ListContainerProp) {
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded)
+    }
+
     return (
         <Draggable>
             <div
@@ -45,7 +50,19 @@ export function ListContainer({
                         left: 10,
                         zIndex: 1,
                     }} />} */}
-                <IconButton
+                <Card
+                    sx={{
+                        backgroundColor: watchlist.isWatchedList ? "rgba(64, 64, 64, 0.3)" : "rgba(255, 255, 255, 0.3)",
+                        height: expanded ? 814 : 407,
+                        width: expanded? 1000: 500,
+                        overflowY: "auto",
+                        scrollbarWidth: "thin",
+                        scrollbarColor: "transparent transparent",
+                        borderRadius: 4,
+                        backdropFilter: "blur(5px)",
+                    }}
+                >
+                    <IconButton
                     sx={{
                         height: 37,
                         width: 37,
@@ -67,6 +84,7 @@ export function ListContainer({
                         right: 8,
                         zIndex: 1,
                     }}
+                    onClick={handleExpandClick}
                 >
                     <BiExpandAlt
                         style={{
@@ -74,18 +92,6 @@ export function ListContainer({
                         }}
                     />
                 </IconButton>
-                <Card
-                    sx={{
-                        backgroundColor: watchlist.isWatchedList ? "rgba(64, 64, 64, 0.3)" : "rgba(255, 255, 255, 0.3)",
-                        height: 407,
-                        width: 500,
-                        overflowY: "auto",
-                        scrollbarWidth: "thin",
-                        scrollbarColor: "transparent transparent",
-                        borderRadius: 4,
-                        backdropFilter: "blur(5px)",
-                    }}
-                >
                     <CardContent
                         sx={{
                             padding: 5,
