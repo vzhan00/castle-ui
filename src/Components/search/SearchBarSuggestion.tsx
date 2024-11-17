@@ -58,7 +58,7 @@ export function SearchBarSuggestion({ watchlist, suggestion, isLast, closeModal 
                 width: 820,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                bgcolor: isHovered ? "rgba(200, 200, 200, 0.3)" : "rgba(255, 255, 255, 0.3)",
+                bgcolor: isHovered ? "rgba(200, 200, 200, 0.6)" : "rgba(230, 230, 230, 0.6)",
                 color: "#2A2F34",
                 borderBottomLeftRadius: isLast ? 8 : 0,
                 borderBottomRightRadius: isLast ? 8 : 0,
