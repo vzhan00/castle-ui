@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { supabase } from "../../supabase";
 import { useRouter } from "next/navigation";
-import MediaListContainer from "../../components/MediaListContainer";
+import ListContainer from "../../components/ListContainer";
 import {
     useCreateDefaultWatchlistsMutation,
     useGetAllWatchlistsQuery,
 } from "../../services/WatchlistApi";
-import MediaSearchBar from "../../components/search/MediaSearchBar";
+import SearchBar from "../../components/search/SearchBar";
 import Modal from "@mui/material/Modal";
 import { Watchlist } from "../../types/Watchlist";
 import { WatchlistsContext } from "../contexts/WatchlistsContext";
@@ -135,7 +135,7 @@ export default function Home() {
                                     justifyContent: "center", // Horizontally center
                                 }}
                             >
-                                <MediaListContainer
+                                <ListContainer
                                     watchlist={watchlist}
                                     openModalWithWatchlist={
                                         openModalWithWatchlist
@@ -152,7 +152,7 @@ export default function Home() {
                                     justifyContent: "center", // Horizontally center
                                 }}
                             >
-                                <MediaListContainer
+                                <ListContainer
                                     watchlist={watchlist}
                                     openModalWithWatchlist={
                                         openModalWithWatchlist
@@ -172,7 +172,7 @@ export default function Home() {
                     open={open}
                     onClose={handleClose}
                 >
-                    <MediaSearchBar
+                    <SearchBar
                         watchlist={modalWatchlist!}
                         closeModal={handleClose}
                     />

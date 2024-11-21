@@ -11,7 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsButton from "./SettingsButton";
 import AddWatchlistButton from "./AddWatchlistButton";
 
-export default function AppBar() {
+export default function HomeAppBar() {
     const router = useRouter();
     
     const signOut = () => {
