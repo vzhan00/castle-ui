@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from 'next/legacy/image';
-import StyledComponentsRegistry from "./lib/registry"
+import StyledComponentsRegistry from "../lib/registry"
 import { Providers } from "./providers"
 import './globals.css';
 

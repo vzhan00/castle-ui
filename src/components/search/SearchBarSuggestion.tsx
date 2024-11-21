@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import "./SearchBar.css";
 import { useAddWatchlistItemMutation } from "../../services/WatchlistApi";
 import { Watchlist, WatchlistItem } from "../../types/Watchlist";
-import { WatchlistsContext } from "../../app/contexts/WatchlistsContext";
+import { WatchlistsContext } from "../../contexts/WatchlistsContext";
 import { v4 as uuidv4 } from "uuid";
 
 interface SearchBarSuggestionProp {

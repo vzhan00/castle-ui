@@ -13,7 +13,7 @@ import {
 import SearchBar from "../../components/search/SearchBar";
 import Modal from "@mui/material/Modal";
 import { Watchlist } from "../../types/Watchlist";
-import { WatchlistsContext } from "../contexts/WatchlistsContext";
+import { WatchlistsContext } from "../../contexts/WatchlistsContext";
 import { Movie } from "../../types/Movie";
 import { Grid2 } from "@mui/material";
 import HomeAppBar from "../../components/HomeAppBar";

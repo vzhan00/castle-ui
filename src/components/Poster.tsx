@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip/Tooltip";
 import { useDeleteWatchlistItemMutation, useAddWatchlistItemMutation } from "../services/WatchlistApi";
 import { Watchlist, WatchlistItemProps } from "../types/Watchlist";
-import { WatchlistsContext } from "../app/contexts/WatchlistsContext";
+import { WatchlistsContext } from "../contexts/WatchlistsContext";
 import CheckIcon from '@mui/icons-material/Check';
 
 export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {

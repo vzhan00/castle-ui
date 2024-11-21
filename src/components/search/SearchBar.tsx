@@ -4,7 +4,7 @@ import { MovieSearchResult } from "../../types/Search";
 import { useLazySearchMovieQuery } from "../../services/MovieApi";
 import "./SearchBar.css";
 import { Watchlist } from "../../types/Watchlist";
-import { WatchlistsContext } from "../../app/contexts/WatchlistsContext";
+import { WatchlistsContext } from "../../contexts/WatchlistsContext";
 import { SearchBarSuggestion } from "./SearchBarSuggestion";
 
 interface searchValue {

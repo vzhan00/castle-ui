@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
-import { Watchlist } from "../../types/Watchlist";
-import { Movie } from "../../types/Movie";
+import { Watchlist } from "../types/Watchlist";
+import { Movie } from "../types/Movie";
 
 interface WatchlistContextType {
     watchlists: Watchlist[] | undefined;
