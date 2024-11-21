@@ -135,7 +135,7 @@ export default function Home() {
                                     justifyContent: "center", // Horizontally center
                                 }}
                             >
-                                <ListContainer
+                                <MediaListContainer
                                     watchlist={watchlist}
                                     openModalWithWatchlist={
                                         openModalWithWatchlist
@@ -152,7 +152,7 @@ export default function Home() {
                                     justifyContent: "center", // Horizontally center
                                 }}
                             >
-                                <ListContainer
+                                <MediaListContainer
                                     watchlist={watchlist}
                                     openModalWithWatchlist={
                                         openModalWithWatchlist
@@ -172,7 +172,7 @@ export default function Home() {
                     open={open}
                     onClose={handleClose}
                 >
-                    <SearchBar
+                    <MediaSearchBar
                         watchlist={modalWatchlist!}
                         closeModal={handleClose}
                     />
