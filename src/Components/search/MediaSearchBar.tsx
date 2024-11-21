@@ -16,7 +16,7 @@ interface SearchBarProp {
     closeModal: () => void;
 }
 
-export function SearchBar({ watchlist, closeModal }: SearchBarProp) {
+export default function MediaSearchBar({ watchlist, closeModal }: SearchBarProp) {
     const context = useContext(WatchlistsContext);
     const watchlists = context?.watchlists;
     const [query, setQuery] = useState("");

@@ -13,7 +13,7 @@ interface ListContainerProp {
     openModalWithWatchlist: (watchlist: Watchlist) => void;
 }
 
-export function ListContainer({
+export default function MediaListContainer({
     watchlist,
     openModalWithWatchlist,
 }: ListContainerProp) {
