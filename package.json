@@ -35,8 +35,8 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "next start",
+    "build": "next build",
     "dev": "next dev"
   },
   "browserslist": {
