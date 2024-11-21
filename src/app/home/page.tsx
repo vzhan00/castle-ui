@@ -110,7 +110,7 @@ export default function Home() {
     };
 
     if (isLoading || isCreating) {
-        return;
+        return null;
     }
 
     return (

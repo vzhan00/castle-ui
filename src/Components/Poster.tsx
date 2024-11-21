@@ -85,19 +85,22 @@ export function Poster({ watchlistItem, watchlistId }: WatchlistItemProps) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <Tooltip title={watchlistItem.movie.title} followCursor enterDelay={500} leaveDelay={100}>
-            <img
-                data-tooltip-id="my-tooltip-1"
-                src={
-                    "https://image.tmdb.org/t/p/w500" +
-                    watchlistItem.movie.posterPath
-                }
-                style={{
-                    width: "100px", // Fixed width
-                    height: "150px", // Fixed height
-                    objectFit: "cover", // Maintain aspect ratio, crop if necessary
-                    borderRadius: 10,
-                }}
-            /> </Tooltip>
+                <div>
+                    <img
+                        data-tooltip-id="my-tooltip-1"
+                        src={
+                            "https://image.tmdb.org/t/p/w500" +
+                            watchlistItem.movie.posterPath
+                        }
+                        style={{
+                            width: "100px", // Fixed width
+                            height: "150px", // Fixed height
+                            objectFit: "cover", // Maintain aspect ratio, crop if necessary
+                            borderRadius: 10,
+                        }}
+                    /> 
+                </div>
+            </Tooltip>
             {isHovered && (
                 <Button
                     variant="contained"
