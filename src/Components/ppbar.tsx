@@ -3,13 +3,11 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { supabase } from "../supabase";
 import { useRouter } from "next/navigation";
 import CastleIcon from "@mui/icons-material/Castle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsButton from "./SettingsButton";
 import AddWatchlistButton from "./AddWatchlistButton";
 

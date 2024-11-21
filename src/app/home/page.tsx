@@ -3,21 +3,20 @@
 import React, { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
-import Button from "@mui/material/Button";
 import { supabase } from "../../supabase";
 import { useRouter } from "next/navigation";
-import { ListContainer } from "../../components/ListContainer";
+import { ListContainer } from "../../components/istContainer";
 import {
     useCreateDefaultWatchlistsMutation,
     useGetAllWatchlistsQuery,
 } from "../../services/WatchlistApi";
-import { SearchBar } from "../../components/search/SearchBar";
+import { SearchBar } from "../../components/search/searchBar";
 import Modal from "@mui/material/Modal";
 import { Watchlist } from "../../types/Watchlist";
 import { WatchlistsContext } from "../contexts/WatchlistsContext";
 import { Movie } from "../../types/Movie";
 import { Grid2 } from "@mui/material";
-import HomeAppBar from "../../components/Appbar";
+import HomeAppBar from "../../components/Appbr";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
