@@ -15,26 +15,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const backgroundImages = [
-		'/swiss_mountains.webp',
-		'/swiss_sign.webp',
 		'/swiss_station.webp',
-		'/swiss_wall.webp',
 	]
-	const index = Math.floor(Math.random() * backgroundImages.length);
-	const currentBackgroundImage = backgroundImages[index]
   
   return (
     <html lang="en">
       <Providers>
         <body>
           <Head>
-            {backgroundImages.map((src, idx) => {
-              return <link key={idx} rel='preload' href={src} as='image' />
-            })}
+            <link key={1} rel='preload' href={'/swiss_station.webp'} as='image' />
           </Head>
           <div className='backgroundImage'>
             <Image
-              src={currentBackgroundImage}
+              src={'/swiss_station.webp'}
               priority={true}
               layout="fill"
               objectPosition='center'
