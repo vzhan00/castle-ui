@@ -78,18 +78,27 @@ export default function SignInForm() {
         setLoading(false);
     };
 
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default form submission
+            handleSignIn(event);
+        }
+    };
+
     return (
-        <FormControl>
+        <FormControl >
             <Input
                 type="email"
                 placeholder="Email"
                 value={email}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setEmail(e.target.value)}
                 required
             />
             <Input
                 type="password"
                 placeholder="Password"
+                onKeyDown={handleKeyDown}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

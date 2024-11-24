@@ -28,6 +28,7 @@ export default function SignUpForm() {
         if (password !== passwordConfirmation) {
             setShake(true);
             setLoading(false);
+            setTimeout(() => setShake(false), 300);
             return;
         }
 
@@ -38,11 +39,19 @@ export default function SignUpForm() {
       
         if (SignUpError) {
             setShake(true);
+            setTimeout(() => setShake(false), 300);
         } else {
             setConfirmation('A confirmation email has been sent to you.');
         }
         setLoading(false);
     }
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default form submission
+            handleSignUp(event);
+        }
+    };
 
     return (
         <FormControl>
@@ -50,6 +59,7 @@ export default function SignUpForm() {
                 type="email"
                 placeholder="Email"
                 value={email}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setEmail(e.target.value)}
                 required
             />
@@ -57,6 +67,7 @@ export default function SignUpForm() {
                 type="password"
                 placeholder="Password"
                 value={password}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
@@ -64,6 +75,7 @@ export default function SignUpForm() {
                 type="password"
                 placeholder="Confirm Password"
                 value={passwordConfirmation}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
                 required
             />
